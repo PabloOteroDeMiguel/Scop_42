@@ -10,15 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c\
-	   \
-	   \
-	   \
+SRCS = main.c
 
 LIBFT_PATH = libft/
-GLEW_PATH = /Users/potero-d/.brew/Cellar/glew/2.2.0_1/include 
-
-GLFW_PATH =/Users/potero-d/.brew/Cellar/glfw/3.3.9/include
+#GLEW_PATH = /Users/potero-d/.brew/Cellar/glew/2.2.0_1/include/
+GLEW_PATH = /usr/local/Cellar/glew/2.2.0_1/include
+#GLFW_PATH =/Users/potero-d/.brew/Cellar/glfw/3.3.9/include
+GLFW_PATH = /usr/local/Cellar/glfw/3.4/include
 OBJS = $(SRCS:.c=.o)
 
 NAME = scop
