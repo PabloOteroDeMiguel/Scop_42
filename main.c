@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
+//#include "scop.h"
 
 // int main(int argc, char** argv){
 
@@ -26,6 +26,9 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <stdio.h>
+#include <stdlib.h>  
+
 void Render(void)
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

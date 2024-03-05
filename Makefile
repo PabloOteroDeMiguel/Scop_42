@@ -16,7 +16,8 @@ SRCS = main.c\
 	   \
 
 LIBFT_PATH = libft/
-GLEW_PATH = /Users/potero-d/.brew/Cellar/glew/2.2.0_1/include/
+GLEW_PATH = /Users/potero-d/.brew/Cellar/glew/2.2.0_1/include 
+
 GLFW_PATH =/Users/potero-d/.brew/Cellar/glfw/3.3.9/include
 OBJS = $(SRCS:.c=.o)
 
@@ -27,14 +28,16 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 %.o:%.c
-		$(CC) $(CFLAGS) -Imlx -c $< -o $(<:.c=.o) -I$(LIBFT_PATH) -I$(GLEW_PATH) -I$(GLFW_PATH)
+		#$(CC) $(CFLAGS) -Imlx -c $< -o $(<:.c=.o) -I$(LIBFT_PATH) -I$(GLEW_PATH) -I$(GLFW_PATH) 
+		$(CC) $(CFLAGS) -I./lib/GLFW/include/ -framework Cocoa -framework OpenGL -framework IOKit -Imlx -c $< -o $(<:.c=.o) -I$(LIBFT_PATH)
+
 RM = rm -f
 
 $(NAME): $(OBJS)
 		@make -C $(LIBFT_PATH) --silent
-		$(CC) $(CFLAGS) $(OBJS) -Imlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -I./libft -L./libft -lft -I$(GLEW_PATH) -I$(GLFW_PATH)
-	#	$(CC) $(CFLAGS) $(OBJS) -lmlx -L/usr/X11/lib -lXext -lX11 -lm -o $(NAME)  -I./libft -L./libft -lft -I$(GLEW_PATH) -I$(GLFW_PATH)
+	#	$(CC) $(CFLAGS) $(OBJS) -Imlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -I./libft -L./libft -lft -I$(GLEW_PATH) -I$(GLFW_PATH)
 
+		
 all: $(NAME)  
 
 
