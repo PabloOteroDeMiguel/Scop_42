@@ -10,47 +10,33 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c
-
-LIBFT_PATH = libft/
-#GLEW_PATH = /Users/potero-d/.brew/Cellar/glew/2.2.0_1/include/
-GLEW_PATH = /usr/local/Cellar/glew/2.2.0_1/include
-#GLFW_PATH =/Users/potero-d/.brew/Cellar/glfw/3.3.9/include
-GLFW_PATH = /usr/local/Cellar/glfw/3.4/include
-OBJS = $(SRCS:.c=.o)
-
-NAME = scop
+SOURCES = main.c
 
 CC = gcc
+CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
+LDFLAGS = -L/usr/local/Cellar/glfw/3.4/lib -L/usr/local/Cellar/glew/2.2.0_1/lib -lglfw -lGLEW -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 
-CFLAGS = -Wall -Wextra -Werror
+OBJECTS=$(SOURCES:.c=.o)
 
-%.o:%.c
-		#$(CC) $(CFLAGS) -Imlx -c $< -o $(<:.c=.o) -I$(LIBFT_PATH) -I$(GLEW_PATH) -I$(GLFW_PATH) 
-		$(CC) $(CFLAGS) -I./lib/GLFW/include/ -framework Cocoa -framework OpenGL -framework IOKit -Imlx -c $< -o $(<:.c=.o) -I$(LIBFT_PATH)
+NAME=scop
 
 RM = rm -f
 
-$(NAME): $(OBJS)
-		@make -C $(LIBFT_PATH) --silent
-	#	$(CC) $(CFLAGS) $(OBJS) -Imlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -I./libft -L./libft -lft -I$(GLEW_PATH) -I$(GLFW_PATH)
+all: $(SOURCES) $(NAME)
 
-		
-all: $(NAME)  
+$(NAME): $(OBJECTS)
+		$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
-
-sanitize: $(OBJS)
-		@make -C $(LIBFT_PATH)  --silent
-		$(CC) $(CFLAGS) $(OBJS) -Imlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -I./libft -L./libft -lft -fsanitize=address -g3 -O3
+.c.o:
+		$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-			$(RM) $(OBJS)
-			@make -C $(LIBFT_PATH) clean --silent
+	 $(RM) $(OBJECTS) $(NAME)
 
 fclean: clean
-			$(RM) $(NAME)
-			@make -C $(LIBFT_PATH) fclean --silent
+		$(RM) $(NAME)
 
 re: fclean $(NAME)
 
 .PHONY: all clean fcelan re
+
