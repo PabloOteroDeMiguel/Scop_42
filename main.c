@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "scop.h"
+#include "scop.h"
 
 // int main(int argc, char** argv){
 
@@ -24,12 +24,8 @@
 //     }
 // }
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <stdio.h>
-#include <stdlib.h>  
 
-void Render(void)
+void Render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -44,12 +40,20 @@ void Render(void)
     }
     glEnd();
 }
-int main(void) {
+
+int main(int argc, char** argv) 
+{
+    if (argc != 2){
+        printf("Error\nWrong number of arguments.\n");
+        return (1);
+    }
+    validateFile(argv[1]); //check file
+
     GLFWwindow* win;
     if(!glfwInit()){
         return -1;
     }
-    win = glfwCreateWindow(640, 480, "OpenGL Base Project", NULL, NULL);
+    win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
     if(!win)
     {
         glfwTerminate();
@@ -67,5 +71,6 @@ int main(void) {
     }
     glfwTerminate();
     exit(EXIT_SUCCESS);
-    return 0;
+    
+    return (0);
 }
