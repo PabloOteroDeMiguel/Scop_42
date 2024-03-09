@@ -27,17 +27,17 @@ void	file_name(char *str)
 	if (str[i] == 'j')
 		i--;
 	else
-		error_file_no(0);
+		error_no(0);
 	if (str[i] == 'b')
 		i--;
 	else
-		error_file_no(0);
+		error_no(0);
 	if (str[i] == 'o')
 		i--;
 	else
-		error_file_no(0);
+		error_no(0);
 	if (str[i] == '.')
 		i--;
 	else
-		error_file_no(0);
+		error_no(0);
 }

@@ -12,11 +12,16 @@
 
 #include "scop.h"
 
-void	error_file_no(int e)
+void	error_no(int e)
 {
 	if (e == 0)
 	{
 		printf("Error\nWrong file.\n");
         exit(0);
 	}
+    if (e ==  1)
+    {
+         printf("Error\nWrong number of arguments.\n");
+         exit(1);
+    }
 }

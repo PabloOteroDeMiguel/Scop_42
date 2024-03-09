@@ -43,12 +43,18 @@ void Render()
 
 int main(int argc, char** argv) 
 {
+    int fd;
+    char *str;
     if (argc != 2){
-        printf("Error\nWrong number of arguments.\n");
-        return (1);
+       error_no(1);
     }
     validateFile(argv[1]); //check file
-
+    fd = open(argv[1], O_RDONLY);
+    str = get_next_line(fd);
+    while (str != NULL){
+        printf("%s\n", str);
+        str = get_next_line(fd);
+    }
     GLFWwindow* win;
     if(!glfwInit()){
         return -1;

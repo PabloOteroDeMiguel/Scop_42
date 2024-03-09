@@ -11,7 +11,8 @@
 # **************************************************************************** #
 
 SOURCES = main.c errors.c \
-			validateFile.c
+			validateFile.c \
+			gnl/get_next_line_utils.c gnl/get_next_line.c \
 
 CC = gcc
 CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
