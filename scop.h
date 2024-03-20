@@ -6,7 +6,7 @@
 /*   By: potero-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:52:31 by potero-d          #+#    #+#             */
-/*   Updated: 2024/03/10 11:51:05 by potero-d         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:32:56 by potero-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,18 @@ void	error_no(int e);
 void    validateFile(char *file);
 void	file_name(char *str);
 
+//readObj
+void    countVerticesAndFaces(t_object *obj);
+
+//printObj
+//void    printVertices(char *file, t_object *obj);
+//void    printFaces(char *file, t_object *obj);
+void    printVertices(char *file);
+void    printFaces(t_object *obj);
+
+//init
+void    initializeObject(t_object *obj);
+
+//free
+void    freeObj(t_object *obj);
 #endif

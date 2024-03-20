@@ -6,7 +6,7 @@
 /*   By: potero-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:52:31 by potero-d          #+#    #+#             */
-/*   Updated: 2024/03/10 11:50:58 by potero-d         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:33:11 by potero-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,23 @@ int main(int argc, char** argv)
 {
     int fd;
     char *str;
+    t_object obj;
     if (argc != 2){
        error_no(1);
     }
+    
+    obj.file = argv[1];
     validateFile(argv[1]); //check file
-    fd = open(argv[1], O_RDONLY);
-    str = get_next_line(fd);
-    while (str != NULL){
-        printf("%s\n", str);
-        str = get_next_line(fd);
-    }
-    GLFWwindow* win;
+    countVerticesAndFaces(&obj);
+    initializeObject(&obj);
+    printf("Vertices-->\t%i\n", obj.num_vertices);
+    printf("Faces----->\t%i\n", obj.num_faces);
+    //GLFWwindow* win;
     if(!glfwInit()){
         return -1;
     }
-    win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
-    if(!win)
+    obj.win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
+    if(!obj.win)
     {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -56,13 +57,16 @@ int main(int argc, char** argv)
     {
         return -1;
     }
-    glfwMakeContextCurrent(win);
-    while(!glfwWindowShouldClose(win)){
-        Render();
-        glfwSwapBuffers(win);
+    glfwMakeContextCurrent(obj.win);
+    while(!glfwWindowShouldClose(obj.win)){
+        //Render();
+        printVertices(obj.file);
+        printFaces(&obj);
+        glfwSwapBuffers(obj.win);
         glfwPollEvents();
     }
     glfwTerminate();
+    freeObj(&obj);
     exit(EXIT_SUCCESS);
     
     return (0);

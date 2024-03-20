@@ -6,13 +6,14 @@
 #    By: potero-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 19:20:44 by potero-d          #+#    #+#              #
-#    Updated: 2024/03/10 11:50:09 by potero-d         ###   ########.fr        #
+#    Updated: 2024/03/20 11:31:00 by potero-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = main.c errors.c \
-			validateFile.c \
+SOURCES = main.c errors.c init.c\
+			validateFile.c readObj.c printObj.c\
 			gnl/get_next_line_utils.c gnl/get_next_line.c \
+			free.c
 
 CC = gcc
 CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/

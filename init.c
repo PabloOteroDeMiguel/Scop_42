@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: potero-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 11:50:14 by potero-d          #+#    #+#             */
-/*   Updated: 2024/03/20 11:22:49 by potero-d         ###   ########.fr       */
+/*   Created: 2024/03/20 11:16:46 by potero-d          #+#    #+#             */
+/*   Updated: 2024/03/20 11:20:54 by potero-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
-
 # include "scop.h"
 
-typedef struct s_object
-{
-	char		*file;
-	int			num_vertices;
-	int			num_faces;
-	
-	float		(*vertices)[3];
-	GLFWwindow	*win;
+void initializeObject(t_object *obj) {
 
-}	t_object;
-
-#endif
+    obj->vertices = malloc(obj->num_vertices * sizeof(float[3]));
+    if (obj->vertices == NULL) {
+        exit(EXIT_FAILURE);
+    }  
+}
