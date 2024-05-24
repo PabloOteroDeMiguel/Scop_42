@@ -32,7 +32,7 @@ static int	words(char const *s, char c)
 	return (word);
 }
 
-void static	ft_aux(char ***str, char const *s, char c)
+void	ft_aux(char ***str, char const *s, char c)
 {	
 	int	i;
 	int	j;

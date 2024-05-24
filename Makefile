@@ -16,8 +16,10 @@ SOURCES = main.c errors.c init.c\
 			free.c
 
 CC = gcc
-CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
-LDFLAGS = -L/usr/local/Cellar/glfw/3.4/lib -L/usr/local/Cellar/glew/2.2.0_1/lib -lglfw -lGLEW -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+#CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
+#LDFLAGS = -L/usr/local/Cellar/glfw/3.4/lib -L/usr/local/Cellar/glew/2.2.0_1/lib -lglfw -lGLEW -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+CFLAGS = -I/home/potero-d/.brew/Cellar/glfw/3.4/include -I/home/potero-d/.brew/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
+LDFLAGS = -L/home/potero-d/.brew/Cellar/glfw/3.4/lib -L/home/potero-d/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -lglfw -lGL
 
 LIBFT_PATH = libft/
 
@@ -31,10 +33,10 @@ all: $(SOURCES) $(NAME)
 
 $(NAME): $(OBJECTS)
 		@make -C $(LIBFT_PATH) --silent
-		$(CC) $(OBJECTS) $(LDFLAGS) -o $@  -I./libft -L./libft -lft
+		$(CC) $(OBJECTS) $(CFLAGS) $(LDFLAGS) -o $@  -I./libft -L./libft -lft
 
 .c.o:
-		$(CC) -c $(CFLAGS) $< -o $@ -I$(LIBFT_PATH)
+		$(CC) -c $(CFLAGS) $(LDFLAGS) $< -o $@ -I$(LIBFT_PATH)
 
 clean:
 	 $(RM) $(OBJECTS) $(NAME)
