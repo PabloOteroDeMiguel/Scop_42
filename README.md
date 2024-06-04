@@ -10,3 +10,7 @@ gcc -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/includ
 /usr/local/Cellar/glew/2.2.0_1/include
 
 /usr/local/Cellar/glfw/3.4/include
+
+sudo apt-get install mesa-common-dev    --> openGL
+sudo apt-get install libglew-dev        --> GLEW
+sudo apt-get install libglfw3-dev       --> GLFW3
