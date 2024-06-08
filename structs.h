@@ -15,6 +15,22 @@
 
 # include "scop.h"
 
+typedef struct s_vertex
+{
+	GLfloat		x;
+	GLfloat		y;
+	GLfloat		z;
+}	t_vertex;
+
+typedef struct s_face
+{
+	GLfloat		x;
+	GLfloat		y;
+	GLfloat		z;
+	GLfloat		t;
+}	t_face;
+
+
 typedef struct s_object
 {
 	char		*file;
@@ -22,6 +38,9 @@ typedef struct s_object
 	int			num_faces;
 	
 	float		(*vertices)[3];
+
+	t_vertex	**s_vertices;
+	t_face		**s_faces;
 	GLFWwindow	*win;
 
 }	t_object;

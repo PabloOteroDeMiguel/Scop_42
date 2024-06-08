@@ -43,6 +43,15 @@ int main(int argc, char** argv)
     initializeObject(&obj);
     printf("Vertices-->\t%i\n", obj.num_vertices);
     printf("Faces----->\t%i\n", obj.num_faces);
+
+    //Create memory
+    obj.s_vertices = (t_vertex **)malloc(obj.num_vertices * sizeof(t_vertex*));
+    obj.s_faces = (t_face **)malloc(obj.num_faces * sizeof(t_face*));
+    if (obj.s_faces == NULL || obj.s_faces == NULL){
+        error_no(2);
+    }
+    //SaveVertices(&obj);
+    //SaveFaces(&obj);
     //GLFWwindow* win;
     if(!glfwInit()){
         return -1;

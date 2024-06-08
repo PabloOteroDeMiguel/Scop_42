@@ -24,4 +24,9 @@ void	error_no(int e)
          printf("Error\nWrong number of arguments.\n");
          exit(1);
     }
+    if (e ==  2)
+    {
+         printf("Error\nCould not allocate memory for vertices and faces.\n");
+         exit(1);
+    }
 }

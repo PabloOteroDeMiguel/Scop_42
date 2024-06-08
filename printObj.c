@@ -130,9 +130,13 @@ void printFaces(t_object *obj) {
             for (int i = 1; i <= 3; i++) {
                 char *endptr;
                 int vertex_index = strtol(line[i], &endptr, 10) - 1;
+                printf("Vertex_Index-->\t%i\n", vertex_index);
+                printf("Vertex_Index[%i]=(", vertex_index);
                 for (int j = 0; j < 3; j++) {
                     f[i - 1][j] = obj->vertices[vertex_index][j];
+                    printf("%f-", obj->vertices[vertex_index][j]);
                 }
+                printf(")\n");
             }
             for (int i = 0; i < 3; i++) {
                 glVertex3f(f[i][0], f[i][1], f[i][2]);

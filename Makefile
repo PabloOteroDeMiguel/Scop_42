@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 SOURCES = main.c errors.c init.c\
-			validateFile.c readObj.c printObj.c\
+			validateFile.c readObj.c printObj.c saveObj.c\
 			gnl/get_next_line_utils.c gnl/get_next_line.c \
 			free.c
 

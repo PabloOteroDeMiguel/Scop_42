@@ -53,3 +53,4 @@ dkms.conf
 
 .DS_STORE
 scop
+.vscode/settings.json
