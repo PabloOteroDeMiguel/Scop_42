@@ -12,6 +12,23 @@
 
 #include "scop.h"
 
+float angleY = 0.0f;
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    printf("Press -> %c\n", key);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+        // Incrementar el ángulo de rotación al presionar 'd'
+        angleY += 5.0f; // Puedes ajustar la velocidad de rotación aquí
+        glRotatef(angleY, 0.0f, 1.0f, 0.0f);
+    }else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+        // Decrementar el ángulo de rotación al presionar 'a'
+        angleY -= 5.0f; // Puedes ajustar la velocidad de rotación aquí
+        glRotatef(angleY, 0.0f, 1.0f, 0.0f);
+    }
+}
+
 void Render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -65,13 +82,12 @@ int main(int argc, char** argv)
     //SaveFaces(obj);
     //printf("HERE3\n");
     GLFWwindow* win;
+    
     if(!glfwInit()){
         return -1;
     }
-    //obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
-    win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
-    //if(!obj->win)
-    if(!win)
+    obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
+    if(!obj->win)
     {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -80,16 +96,16 @@ int main(int argc, char** argv)
     {
         return -1;
     }
-    //glfwMakeContextCurrent(obj->win);
-    glfwMakeContextCurrent(win);
-    //while(!glfwWindowShouldClose(obj->win)){
-    while(!glfwWindowShouldClose(win)){
+    glfwMakeContextCurrent(obj->win);
+    while(!glfwWindowShouldClose(obj->win)){
         //Render();
         printVertices(obj->file);
         printFaces(obj, argv[1]);
-        //glfwSwapBuffers(obj->win);
-        glfwSwapBuffers(win);
+        glfwSwapBuffers(obj->win);
+        //glfwSwapBuffers(win);
         glfwPollEvents();
+        glfwSetKeyCallback(obj->win, key_callback);
+        
     }
     glfwTerminate();
     freeObj(obj);
