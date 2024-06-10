@@ -114,30 +114,55 @@ void printVertices(char *file) {
     close(fd);
 }
 
-void printFaces(t_object *obj) {
+void printFaces(t_object *obj, char* file) {
     int fd;
+    int vertex_index;
     char *str;
     char **line;
-    float f[3][3];
-
-    fd = open(obj->file, O_RDONLY);
+    GLfloat f[4][3];
+    //printf("fd-> %s\n", obj->file);
+    fd = open(file, O_RDONLY);
     str = get_next_line(fd);
 
     glBegin(GL_TRIANGLES);
+    //printf("HERE4\n");
+    //printf("%s -->\n", str);
     while (str != NULL) {
+        //printf("%s -->\n", str);
         if (str[0] == 'f' && str[1] == ' ') {
             line = ft_split(str, ' ');
             for (int i = 1; i <= 3; i++) {
-                char *endptr;
-                int vertex_index = strtol(line[i], &endptr, 10) - 1;
-                printf("Vertex_Index-->\t%i\n", vertex_index);
-                printf("Vertex_Index[%i]=(", vertex_index);
-                for (int j = 0; j < 3; j++) {
-                    f[i - 1][j] = obj->vertices[vertex_index][j];
-                    printf("%f-", obj->vertices[vertex_index][j]);
+                vertex_index = atoi(line[i]) - 1;
+                if(!vertex_index){
+                    continue;
                 }
-                printf(")\n");
+                f[i - 1][0] = obj->s_vertices[vertex_index]->x;          
+                f[i - 1][1] = obj->s_vertices[vertex_index]->y;
+                f[i - 1][2] = obj->s_vertices[vertex_index]->z;
+                //printf("%i --> %f, %f, %f\n", vertex_index, f[i - 1][0], f[i - 1][1], f[i - 1][2]);
+                
             }
+            if (line[4] && line[4] != NULL){
+                vertex_index = atoi(line[4]) - 1;
+                f[3][0] = obj->s_vertices[vertex_index]->x;
+                f[3][1] = obj->s_vertices[vertex_index]->y;
+                f[3][2] = obj->s_vertices[vertex_index]->z;
+                glVertex3f(f[3][0], f[3][1], f[3][2]);
+                glVertex3f(f[1][0], f[1][1], f[1][2]);
+                glVertex3f(f[2][0], f[2][1], f[2][2]);
+            }
+            // for (int i = 1; i <= 3; i++) {
+            //     char *endptr;
+            //     int vertex_index = strtol(line[i], &endptr, 10) - 1;
+            //     //printf("Vertex_Index-->\t%i\n", vertex_index);
+            //     //printf("Vertex_Index[%i]=(", vertex_index);
+            //     f[i - 1][0] = obj->s_vertices[vertex_index]->x;
+            //     f[i - 1][1] = obj->s_vertices[vertex_index]->y;
+            //     f[i - 1][2] = obj->s_vertices[vertex_index]->z;
+            //     //printf("%f, %f, %f\n", f[i - 1][0], f[i - 1][0],f[i - 1][0]);
+                
+            //     //printf(")\n");
+            // }
             for (int i = 0; i < 3; i++) {
                 glVertex3f(f[i][0], f[i][1], f[i][2]);
             }

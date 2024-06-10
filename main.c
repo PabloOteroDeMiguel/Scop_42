@@ -32,32 +32,46 @@ int main(int argc, char** argv)
 {
     int fd;
     char *str;
-    t_object obj;
+    t_object *obj;
     if (argc != 2){
        error_no(1);
     }
     
-    obj.file = argv[1];
+    obj = (t_object *)malloc(sizeof(t_object));
+    if (!obj) {
+        fprintf(stderr, "Error\n");
+        return EXIT_FAILURE;
+    }
+    obj->file = argv[1];
     validateFile(argv[1]); //check file
-    countVerticesAndFaces(&obj);
-    initializeObject(&obj);
-    printf("Vertices-->\t%i\n", obj.num_vertices);
-    printf("Faces----->\t%i\n", obj.num_faces);
+    countVerticesAndFaces(obj);
+    initializeObject(obj);
+    printf("Vertices-->\t%i\n", obj->num_vertices);
+    printf("Faces----->\t%i\n", obj->num_faces);
 
     //Create memory
-    obj.s_vertices = (t_vertex **)malloc(obj.num_vertices * sizeof(t_vertex*));
-    obj.s_faces = (t_face **)malloc(obj.num_faces * sizeof(t_face*));
-    if (obj.s_faces == NULL || obj.s_faces == NULL){
+    obj->s_vertices = (t_vertex **)malloc(obj->num_vertices * sizeof(t_vertex*));
+    obj->s_faces = (t_face **)malloc(obj->num_faces * sizeof(t_face*));
+    if (obj->s_faces == NULL || obj->s_faces == NULL){
         error_no(2);
     }
-    //SaveVertices(&obj);
-    //SaveFaces(&obj);
-    //GLFWwindow* win;
+
+    SaveVertices(obj, argv[1]);
+    int i = 0;
+    while (i < obj->num_vertices){
+        printf("v[%i] --> (%f, %f, %f)\n", i, obj->s_vertices[i]->x, obj->s_vertices[i]->y, obj->s_vertices[i]->z);
+        i++;
+    }
+    //SaveFaces(obj);
+    //printf("HERE3\n");
+    GLFWwindow* win;
     if(!glfwInit()){
         return -1;
     }
-    obj.win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
-    if(!obj.win)
+    //obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
+    win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
+    //if(!obj->win)
+    if(!win)
     {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -66,16 +80,19 @@ int main(int argc, char** argv)
     {
         return -1;
     }
-    glfwMakeContextCurrent(obj.win);
-    while(!glfwWindowShouldClose(obj.win)){
+    //glfwMakeContextCurrent(obj->win);
+    glfwMakeContextCurrent(win);
+    //while(!glfwWindowShouldClose(obj->win)){
+    while(!glfwWindowShouldClose(win)){
         //Render();
-        printVertices(obj.file);
-        printFaces(&obj);
-        glfwSwapBuffers(obj.win);
+        printVertices(obj->file);
+        printFaces(obj, argv[1]);
+        //glfwSwapBuffers(obj->win);
+        glfwSwapBuffers(win);
         glfwPollEvents();
     }
     glfwTerminate();
-    freeObj(&obj);
+    freeObj(obj);
     exit(EXIT_SUCCESS);
     
     return (0);

@@ -38,6 +38,12 @@ $(NAME): $(OBJECTS)
 .c.o:
 		$(CC) -c $(CFLAGS) $(LDFLAGS) $< -o $@ -I$(LIBFT_PATH)
 
+sanitize: CFLAGS += -fsanitize=address
+sanitize: LDFLAGS += -fsanitize=address
+sanitize: $(OBJECTS)
+	@make -C $(LIBFT_PATH) --silent
+	$(CC) $(OBJECTS) $(CFLAGS) $(LDFLAGS) -o $(NAME) -I./libft -L./libft -lft
+
 clean:
 	 $(RM) $(OBJECTS) $(NAME)
 

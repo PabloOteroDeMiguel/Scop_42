@@ -38,23 +38,43 @@ void	ft_strlcpy2(char *dst, const char *src, size_t dstsize, size_t l)
 	}
 }
 
+// char	*ft_substr(char const *s, unsigned int start, size_t len)
+// {
+// 	char	*str;
+// 	size_t	l;
+
+// 	l = ft_strlen(s);
+// 	if (!s)
+// 		return (0);
+// 	if (len > l)
+// 		len = l;
+// 	str = malloc(sizeof(char) * (len + 1));
+// 	if (!str)
+// 		return (0);
+// 	if (start < l)
+// 		ft_strlcpy2(str, &s[start], len + 1, l);
+// 	else
+// 		ft_strlcpy2(str, "", 1, l);
+// 	return (str);
+// }
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	l;
+	size_t	max_len;
 
-	l = ft_strlen(s);
 	if (!s)
 		return (0);
-	if (len > l)
-		len = l;
+	l = ft_strlen(s);
+	if (start >= l)
+		return (strdup(""));
+	max_len = l - start;
+	if (len > max_len)
+		len = max_len;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (0);
-	if (start < l)
-		ft_strlcpy2(str, &s[start], len + 1, l);
-	else
-		ft_strlcpy2(str, "", 1, l);
+	ft_strlcpy2(str, s + start, len + 1, len);
 	return (str);
 }
 
@@ -72,7 +92,7 @@ void	*ft_calloc_bzero(size_t count, size_t size)
 		s[i] = '\0';
 		i++;
 	}
-	s[i] = 0;
+	//s[i] = 0;
 	return (s);
 }
 

@@ -19,7 +19,7 @@
 #include <stdlib.h>
 # include <fcntl.h>
 # include "gnl/get_next_line.h"  
-# include "libft.h"
+# include "libft/libft.h"
 # include "structs.h"
 
 //main
@@ -38,10 +38,10 @@ void    countVerticesAndFaces(t_object *obj);
 //void    printVertices(char *file, t_object *obj);
 //void    printFaces(char *file, t_object *obj);
 void    printVertices(char *file);
-void    printFaces(t_object *obj);
+void    printFaces(t_object *obj, char* file);
 
 //saveObj
-void    SaveVertices(t_object *obj);
+void    SaveVertices(t_object *obj, char *file);
 void    SaveFaces(t_object *obj);
 
 //init
