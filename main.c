@@ -13,6 +13,7 @@
 #include "scop.h"
 
 float angleY = 0.0f;
+float scaleFactor = 1.0f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -26,6 +27,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         // Decrementar el ángulo de rotación al presionar 'a'
         angleY -= 5.0f; // Puedes ajustar la velocidad de rotación aquí
         glRotatef(angleY, 0.0f, 1.0f, 0.0f);
+    }else if(key == GLFW_KEY_E && action == GLFW_PRESS) {
+        scaleFactor *= 2.0;
+        glScalef(scaleFactor, scaleFactor, scaleFactor);
+    }else if(key == GLFW_KEY_Q && action == GLFW_PRESS) {
+        scaleFactor *= 0.5;
+        glScalef(scaleFactor, scaleFactor, scaleFactor);
     }
 }
 
@@ -102,7 +109,6 @@ int main(int argc, char** argv)
         printVertices(obj->file);
         printFaces(obj, argv[1]);
         glfwSwapBuffers(obj->win);
-        //glfwSwapBuffers(win);
         glfwPollEvents();
         glfwSetKeyCallback(obj->win, key_callback);
         
