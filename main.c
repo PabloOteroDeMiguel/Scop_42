@@ -81,13 +81,13 @@ int main(int argc, char** argv)
     }
 
     SaveVertices(obj, argv[1]);
-    int i = 0;
-    while (i < obj->num_vertices){
-        printf("v[%i] --> (%f, %f, %f)\n", i, obj->s_vertices[i]->x, obj->s_vertices[i]->y, obj->s_vertices[i]->z);
-        i++;
-    }
-    //SaveFaces(obj);
-    //printf("HERE3\n");
+    // int i = 0;
+    // while (i < obj->num_vertices){
+    //     printf("v[%i] --> (%f, %f, %f)\n", i, obj->s_vertices[i]->x, obj->s_vertices[i]->y, obj->s_vertices[i]->z);
+    //     i++;
+    // }
+    SaveFaces(obj);
+    
     GLFWwindow* win;
     
     if(!glfwInit()){
@@ -106,8 +106,8 @@ int main(int argc, char** argv)
     glfwMakeContextCurrent(obj->win);
     while(!glfwWindowShouldClose(obj->win)){
         //Render();
-        printVertices(obj->file);
-        printFaces(obj, argv[1]);
+        printVertices(obj);
+        printFaces(obj);
         glfwSwapBuffers(obj->win);
         glfwPollEvents();
         glfwSetKeyCallback(obj->win, key_callback);

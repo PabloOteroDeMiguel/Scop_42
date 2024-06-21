@@ -37,8 +37,8 @@ void    countVerticesAndFaces(t_object *obj);
 //printObj
 //void    printVertices(char *file, t_object *obj);
 //void    printFaces(char *file, t_object *obj);
-void    printVertices(char *file);
-void    printFaces(t_object *obj, char* file);
+void    printVertices(t_object *obj);
+void    printFaces(t_object *obj);
 
 //saveObj
 void    SaveVertices(t_object *obj, char *file);

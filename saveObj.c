@@ -46,9 +46,7 @@ void SaveVertices(t_object *obj, char *file) {
         }
         str = get_next_line(fd);
     }
-    printf("HERE\n");
     close(fd);
-    printf("HERE1\n");
 }
 
 void SaveFaces(t_object *obj) {
@@ -60,11 +58,20 @@ void SaveFaces(t_object *obj) {
     float   f[4];
 
     fd = open(obj->file, O_RDONLY);
+    if (fd < 0) {
+        perror("Error al abrir el archivo");
+        return;
+    }
     str = get_next_line(fd);
-
+    f_cont = 0;
     while (str != NULL) {
         if (str[0] == 'f' && str[1] == ' ') {
             line = ft_split(str, ' ');
+            if (!line) {
+                free(line);
+                str = get_next_line(fd);
+                continue;
+            }
             face = (t_face *)malloc(sizeof(t_face));
             if (!face) {
                 perror("Error al asignar memoria para el vértice");
@@ -72,16 +79,20 @@ void SaveFaces(t_object *obj) {
                 close(fd);
                 return;
             }
-            f[0] = strtof(line[1], NULL);
+            f[0] = atoi(line[1]);
             face->x = f[0];
-            f[1] = strtof(line[2], NULL);
+            f[1] = atoi(line[2]);
             face->y = f[1];
-            f[2] = strtof(line[3], NULL);
+            f[2] = atoi(line[3]);
             face->z = f[2];
-            f[3] = strtof(line[4], NULL);
-            face->t = f[3];
+            if (line[4]){
+                f[3] = atoi(line[4]);
+                face->t = f[3];
+            }
+            else{
+                face->t = 0; //Can be??
+            }   
             obj->s_faces[f_cont] = face;
-            printf("%s --> %f, %f, %f\n", str, f[0], f[1], f[2]);
             f_cont++;   
             free(line);
         }
