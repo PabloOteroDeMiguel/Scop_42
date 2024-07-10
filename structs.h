@@ -38,7 +38,9 @@ typedef struct s_object
 	int			num_faces;
 	
 	float		(*vertices)[3];
-
+	float		scale;
+	float		angle;
+	
 	t_vertex	**s_vertices;
 	t_face		**s_faces;
 	GLFWwindow	*win;

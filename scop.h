@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "gnl/get_next_line.h"  
 # include "libft/libft.h"
 # include "structs.h"
@@ -49,4 +50,10 @@ void    initializeObject(t_object *obj);
 
 //free
 void    freeObj(t_object *obj);
+
+//matrixAndVertex
+void    multiplyMatrixVector(float *v, float matrix[4][4]);
+void    scaleVertex(t_vertex *v, float scale);
+void    rotateVertexY(t_vertex *v, float angle);
+
 #endif

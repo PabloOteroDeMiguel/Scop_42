@@ -12,27 +12,25 @@
 
 #include "scop.h"
 
-float angleY = 0.0f;
-float scaleFactor = 1.0f;
+// float angleY = 0.0f;
+// float scaleFactor = 1.0f;
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    printf("Press -> %c\n", key);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-        // Incrementar el ángulo de rotación al presionar 'd'
-        angleY += 5.0f; // Puedes ajustar la velocidad de rotación aquí
-        glRotatef(angleY, 0.0f, 1.0f, 0.0f);
-    }else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-        // Decrementar el ángulo de rotación al presionar 'a'
-        angleY -= 5.0f; // Puedes ajustar la velocidad de rotación aquí
-        glRotatef(angleY, 0.0f, 1.0f, 0.0f);
-    }else if(key == GLFW_KEY_E && action == GLFW_PRESS) {
-        scaleFactor *= 2.0;
-        glScalef(scaleFactor, scaleFactor, scaleFactor);
-    }else if(key == GLFW_KEY_Q && action == GLFW_PRESS) {
-        scaleFactor *= 0.5;
-        glScalef(scaleFactor, scaleFactor, scaleFactor);
+void    input_key(t_object* obj) {
+
+    if (glfwGetKey(obj->win, GLFW_KEY_D) == GLFW_PRESS) {
+        obj->angle += 5.0f;
+    }
+    else if (glfwGetKey(obj->win, GLFW_KEY_A) == GLFW_PRESS) {
+        obj->angle -= 5.0f;
+    }
+    else if (glfwGetKey(obj->win, GLFW_KEY_E) == GLFW_PRESS) {
+        obj->scale += 0.1f;
+    }
+    else if (glfwGetKey(obj->win, GLFW_KEY_Q) == GLFW_PRESS) {
+        obj->scale -= 0.1f;
+        if (obj->scale < 0) { //Para que no se invierta
+            obj->scale = 0;
+        }
     }
 }
 
@@ -67,6 +65,8 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
     obj->file = argv[1];
+    obj->scale = 1;
+    obj->angle = 0.0f;
     validateFile(argv[1]); //check file
     countVerticesAndFaces(obj);
     initializeObject(obj);
@@ -93,7 +93,7 @@ int main(int argc, char** argv)
     if(!glfwInit()){
         return -1;
     }
-    obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);
+    obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);   
     if(!obj->win)
     {
         glfwTerminate();
@@ -103,15 +103,20 @@ int main(int argc, char** argv)
     {
         return -1;
     }
+    
+    glfwSetWindowUserPointer(obj->win, &obj);
+    // glfwSetKeyCallback(obj->win, key_callback);
     glfwMakeContextCurrent(obj->win);
     while(!glfwWindowShouldClose(obj->win)){
+        input_key(obj);
         //Render();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         printVertices(obj);
         printFaces(obj);
+        
+        // glfwSetKeyCallback(obj->win, key_callback);
         glfwSwapBuffers(obj->win);
         glfwPollEvents();
-        glfwSetKeyCallback(obj->win, key_callback);
-        
     }
     glfwTerminate();
     freeObj(obj);

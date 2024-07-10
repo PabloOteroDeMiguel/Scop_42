@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 SOURCES = main.c errors.c init.c\
-			validateFile.c readObj.c printObj.c saveObj.c\
+			validateFile.c readObj.c printObj.c saveObj.c matrixAndVertex.c\
 			gnl/get_next_line_utils.c gnl/get_next_line.c \
 			free.c
 
@@ -19,7 +19,7 @@ CC = gcc
 #CFLAGS = -I/usr/local/Cellar/glfw/3.4/include -I/usr/local/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
 #LDFLAGS = -L/usr/local/Cellar/glfw/3.4/lib -L/usr/local/Cellar/glew/2.2.0_1/lib -lglfw -lGLEW -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 CFLAGS = -I/home/potero-d/.brew/Cellar/glfw/3.4/include -I/home/potero-d/.brew/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
-LDFLAGS = -L/home/potero-d/.brew/Cellar/glfw/3.4/lib -L/home/potero-d/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -lglfw -lGL
+LDFLAGS = -L/home/potero-d/.brew/Cellar/glfw/3.4/lib -L/home/potero-d/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -lglfw -lGL -lm
 
 LIBFT_PATH = libft/
 
