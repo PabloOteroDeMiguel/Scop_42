@@ -28,8 +28,8 @@ void printVertices(t_object *obj) {
     for (int v_cont = 0; v_cont < obj->num_vertices; v_cont++) {
         t_vertex transformed_vertex = *(obj->s_vertices[v_cont]);
         scaleVertex(&transformed_vertex, obj->scale);
-        rotateVertexY(&transformed_vertex, obj->angle);
-
+        rotateVertexY(&transformed_vertex, obj->angle_x);
+        rotateVertexX(&transformed_vertex, obj->angle_y);
         glVertex3f(transformed_vertex.x, transformed_vertex.y, transformed_vertex.z);
     }
 
@@ -55,7 +55,8 @@ void printFaces(t_object *obj) {
                 }
             t_vertex transformed_vertex = *(obj->s_vertices[vertex_index[i]]);
             scaleVertex(&transformed_vertex, obj->scale);
-            rotateVertexY(&transformed_vertex, obj->angle);
+            rotateVertexY(&transformed_vertex, obj->angle_x);
+            rotateVertexX(&transformed_vertex, obj->angle_y);
 
             f[i][0] = transformed_vertex.x;
             f[i][1] = transformed_vertex.y;
@@ -67,7 +68,8 @@ void printFaces(t_object *obj) {
             if (vertex_index[3] && vertex_index[3] > 0){
                 t_vertex transformed_vertex = *(obj->s_vertices[vertex_index[3]]);
                 scaleVertex(&transformed_vertex, obj->scale);
-                rotateVertexY(&transformed_vertex, obj->angle);
+                rotateVertexY(&transformed_vertex, obj->angle_x);
+                rotateVertexX(&transformed_vertex, obj->angle_y);
 
                 f[3][0] = transformed_vertex.x;
                 f[3][1] = transformed_vertex.y;

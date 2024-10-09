@@ -56,3 +56,26 @@ void    saveVertices(t_object *obj){
         str = get_next_line(fd);
     }
 }
+
+void CenterObject(t_object *obj) {
+    float sum_x = 0, sum_y = 0, sum_z = 0;
+    int i;
+
+    // Calcular el centroide
+    for (i = 0; i < obj->num_vertices; i++) {
+        sum_x += obj->s_vertices[i]->x;
+        sum_y += obj->s_vertices[i]->y;
+        sum_z += obj->s_vertices[i]->z;
+    }
+
+    float centroid_x = sum_x / obj->num_vertices;
+    float centroid_y = sum_y / obj->num_vertices;
+    float centroid_z = sum_z / obj->num_vertices;
+
+    // Ajustar las coordenadas de los vértices
+    for (i = 0; i < obj->num_vertices; i++) {
+        obj->s_vertices[i]->x -= centroid_x;
+        obj->s_vertices[i]->y -= centroid_y;
+        obj->s_vertices[i]->z -= centroid_z;
+    }
+}

@@ -62,3 +62,25 @@ void rotateVertexY(t_vertex *v, float angle)
     v->y = vertex[1];
     v->z = vertex[2];
 }
+
+void rotateVertexX(t_vertex *v, float angle) 
+{
+    float PI = 3.14159265;
+
+    float angle_rad = angle * PI / 180.0f;
+    float cos_angle = cos(angle_rad);
+    float sin_angle = sin(angle_rad);
+
+    float rotation_matrix[4][4] = {
+        {1, 0, 0, 0},
+        {0, cos_angle, -sin_angle, 0},
+        {0, sin_angle, cos_angle, 0},
+        {0, 0, 0, 1}
+    };
+
+    float vertex[4] = {v->x, v->y, v->z, 1.0f};
+    multiplyMatrixVector(vertex, rotation_matrix);
+    v->x = vertex[0];
+    v->y = vertex[1];
+    v->z = vertex[2];
+}

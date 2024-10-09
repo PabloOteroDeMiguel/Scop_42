@@ -34,6 +34,7 @@ void	file_name(char *str);
 
 //readObj
 void    countVerticesAndFaces(t_object *obj);
+void    CenterObject(t_object *obj);
 
 //printObj
 //void    printVertices(char *file, t_object *obj);
@@ -55,5 +56,6 @@ void    freeObj(t_object *obj);
 void    multiplyMatrixVector(float *v, float matrix[4][4]);
 void    scaleVertex(t_vertex *v, float scale);
 void    rotateVertexY(t_vertex *v, float angle);
+void    rotateVertexX(t_vertex *v, float angle);
 
 #endif

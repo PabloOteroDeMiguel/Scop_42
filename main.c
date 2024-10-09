@@ -12,16 +12,13 @@
 
 #include "scop.h"
 
-// float angleY = 0.0f;
-// float scaleFactor = 1.0f;
-
 void    input_key(t_object* obj) {
 
     if (glfwGetKey(obj->win, GLFW_KEY_D) == GLFW_PRESS) {
-        obj->angle += 5.0f;
+        obj->angle_x += 5.0f;
     }
     else if (glfwGetKey(obj->win, GLFW_KEY_A) == GLFW_PRESS) {
-        obj->angle -= 5.0f;
+        obj->angle_x -= 5.0f;
     }
     else if (glfwGetKey(obj->win, GLFW_KEY_E) == GLFW_PRESS) {
         obj->scale += 0.1f;
@@ -32,22 +29,12 @@ void    input_key(t_object* obj) {
             obj->scale = 0;
         }
     }
-}
-
-void Render()
-{
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_TRIANGLES);
-    {
-        glColor3f(1.0,0.0,0.0);
-        glVertex2f(0, .5);
-        glColor3f(0.0,1.0,0.0);
-        glVertex2f(-.5,-.5);
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex2f(.5, -.5);
+    else if (glfwGetKey(obj->win, GLFW_KEY_W) == GLFW_PRESS) {
+        obj->angle_y += 5.0f; // Rotar hacia arriba
     }
-    glEnd();
+    else if (glfwGetKey(obj->win, GLFW_KEY_S) == GLFW_PRESS) {
+        obj->angle_y -= 5.0f; // Rotar hacia abajo
+    }
 }
 
 int main(int argc, char** argv) 
@@ -66,7 +53,8 @@ int main(int argc, char** argv)
     }
     obj->file = argv[1];
     obj->scale = 1;
-    obj->angle = 0.0f;
+    obj->angle_x = 0.0f;
+    obj->angle_y = 0.0f;
     validateFile(argv[1]); //check file
     countVerticesAndFaces(obj);
     initializeObject(obj);
@@ -81,6 +69,7 @@ int main(int argc, char** argv)
     }
 
     SaveVertices(obj, argv[1]);
+    CenterObject(obj);
     // int i = 0;
     // while (i < obj->num_vertices){
     //     printf("v[%i] --> (%f, %f, %f)\n", i, obj->s_vertices[i]->x, obj->s_vertices[i]->y, obj->s_vertices[i]->z);
@@ -104,17 +93,12 @@ int main(int argc, char** argv)
         return -1;
     }
     
-    glfwSetWindowUserPointer(obj->win, &obj);
-    // glfwSetKeyCallback(obj->win, key_callback);
     glfwMakeContextCurrent(obj->win);
     while(!glfwWindowShouldClose(obj->win)){
         input_key(obj);
-        //Render();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         printVertices(obj);
         printFaces(obj);
-        
-        // glfwSetKeyCallback(obj->win, key_callback);
         glfwSwapBuffers(obj->win);
         glfwPollEvents();
     }

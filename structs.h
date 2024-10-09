@@ -39,7 +39,8 @@ typedef struct s_object
 	
 	float		(*vertices)[3];
 	float		scale;
-	float		angle;
+	float		angle_x;
+	float		angle_y;
 	
 	t_vertex	**s_vertices;
 	t_face		**s_faces;
