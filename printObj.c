@@ -53,17 +53,14 @@ void printFaces(t_object *obj) {
                 if(!vertex_index[i]){
                     continue;
                 }
-            t_vertex transformed_vertex = *(obj->s_vertices[vertex_index[i]]);
-            scaleVertex(&transformed_vertex, obj->scale);
-            rotateVertexY(&transformed_vertex, obj->angle_x);
-            rotateVertexX(&transformed_vertex, obj->angle_y);
+                t_vertex transformed_vertex = *(obj->s_vertices[vertex_index[i]]);
+                scaleVertex(&transformed_vertex, obj->scale);
+                rotateVertexY(&transformed_vertex, obj->angle_x);
+                rotateVertexX(&transformed_vertex, obj->angle_y);
 
-            f[i][0] = transformed_vertex.x;
-            f[i][1] = transformed_vertex.y;
-            f[i][2] = transformed_vertex.z;
-                // f[i][0] = obj->s_vertices[vertex_index[i]]->x;          
-                // f[i][1] = obj->s_vertices[vertex_index[i]]->y;
-                // f[i][2] = obj->s_vertices[vertex_index[i]]->z;  
+                f[i][0] = transformed_vertex.x;
+                f[i][1] = transformed_vertex.y;
+                f[i][2] = transformed_vertex.z;
             }
             if (vertex_index[3] && vertex_index[3] > 0){
                 t_vertex transformed_vertex = *(obj->s_vertices[vertex_index[3]]);
@@ -74,15 +71,24 @@ void printFaces(t_object *obj) {
                 f[3][0] = transformed_vertex.x;
                 f[3][1] = transformed_vertex.y;
                 f[3][2] = transformed_vertex.z;
-                // f[3][0] = obj->s_vertices[vertex_index[3]]->x;
-                // f[3][1] = obj->s_vertices[vertex_index[3]]->y;
-                // f[3][2] = obj->s_vertices[vertex_index[3]]->z;
+
+                if (obj->color != 0) {
+                    float r, g, b;
+                    generateRandomColor(&r, &g, &b);
+                    glColor3f(r, g, b);
+                }
+                
 
                 glVertex3f(f[0][0], f[0][1], f[0][2]);
                 glVertex3f(f[2][0], f[2][1], f[2][2]);
                 glVertex3f(f[3][0], f[3][1], f[3][2]);
             }
             for (int i = 0; i < 3; i++) {
+                if (obj->color != 0){
+                    float r, g, b;
+                    generateRandomColor(&r, &g, &b);
+                    glColor3f(r, g, b);
+                }
                 glVertex3f(f[i][0], f[i][1], f[i][2]);
             }
     }

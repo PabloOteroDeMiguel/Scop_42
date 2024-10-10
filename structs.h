@@ -36,6 +36,7 @@ typedef struct s_object
 	char		*file;
 	int			num_vertices;
 	int			num_faces;
+	int			color;
 	
 	float		(*vertices)[3];
 	float		scale;

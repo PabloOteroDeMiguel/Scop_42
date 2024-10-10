@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 SOURCES = main.c errors.c init.c\
-			validateFile.c readObj.c printObj.c saveObj.c matrixAndVertex.c\
+			validateFile.c readObj.c printObj.c saveObj.c matrixAndVertex.c textureAndColor.c\
 			gnl/get_next_line_utils.c gnl/get_next_line.c \
 			free.c
 

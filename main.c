@@ -35,6 +35,10 @@ void    input_key(t_object* obj) {
     else if (glfwGetKey(obj->win, GLFW_KEY_S) == GLFW_PRESS) {
         obj->angle_y -= 5.0f; // Rotar hacia abajo
     }
+    else if (glfwGetKey(obj->win, GLFW_KEY_T) == GLFW_PRESS) {
+        obj->color = obj->color ? 0 : 1;
+        //printFaces(&obj); // Redibujar la escena
+    }
 }
 
 int main(int argc, char** argv) 
@@ -55,6 +59,7 @@ int main(int argc, char** argv)
     obj->scale = 1;
     obj->angle_x = 0.0f;
     obj->angle_y = 0.0f;
+    obj->color = 0;
     validateFile(argv[1]); //check file
     countVerticesAndFaces(obj);
     initializeObject(obj);

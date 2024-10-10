@@ -58,4 +58,7 @@ void    scaleVertex(t_vertex *v, float scale);
 void    rotateVertexY(t_vertex *v, float angle);
 void    rotateVertexX(t_vertex *v, float angle);
 
+//textureAndColor
+void    generateRandomColor(float *r, float *g, float *b);
+
 #endif
