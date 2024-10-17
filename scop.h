@@ -17,6 +17,7 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
 # include "gnl/get_next_line.h"  
@@ -60,5 +61,6 @@ void    rotateVertexX(t_vertex *v, float angle);
 
 //textureAndColor
 void    generateRandomColor(float *r, float *g, float *b);
+void    generateColor(float *r, float *g, float *b, int color);
 
 #endif

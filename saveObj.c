@@ -56,7 +56,9 @@ void SaveFaces(t_object *obj) {
     char    **line;
     t_face  *face;
     float   f[4];
+    int     fc_cont;
 
+    fc_cont = 0;
     fd = open(obj->file, O_RDONLY);
     if (fd < 0) {
         perror("Error al abrir el archivo");
@@ -91,7 +93,11 @@ void SaveFaces(t_object *obj) {
             }
             else{
                 face->t = 0; //Can be??
-            }   
+            }
+            face->face_color = fc_cont;
+            fc_cont++;
+            if (fc_cont > 5)
+                fc_cont = 0;
             obj->s_faces[f_cont] = face;
             f_cont++;   
             free(line);

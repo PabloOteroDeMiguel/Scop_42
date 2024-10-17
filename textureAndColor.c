@@ -17,3 +17,29 @@ void generateRandomColor(float *r, float *g, float *b) {
     *g = (float)rand() / RAND_MAX;
     *b = (float)rand() / RAND_MAX;
 }
+
+void generateColor(float *r, float *g, float *b, int color) {
+    switch (color) {
+        case 0:
+            *r = 1.0f; *g = 0.0f; *b = 0.0f; // Rojo
+            break;
+        case 1:
+            *r = 0.0f; *g = 1.0f; *b = 0.0f; // Verde
+            break;
+        case 2:
+            *r = 0.0f; *g = 0.0f; *b = 1.0f; // Azul
+            break;
+        case 3:
+            *r = 1.0f; *g = 1.0f; *b = 0.0f; // Amarillo
+            break;
+        case 4:
+            *r = 1.0f; *g = 0.0f; *b = 1.0f; // Magenta
+            break;
+        case 5:
+            *r = 0.0f; *g = 1.0f; *b = 1.0f; // Cian
+            break;
+        default:
+            *r = 1.0f; *g = 1.0f; *b = 1.0f; // Blanco por defecto
+            break;
+    }
+}

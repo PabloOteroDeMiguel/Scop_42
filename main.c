@@ -35,9 +35,21 @@ void    input_key(t_object* obj) {
     else if (glfwGetKey(obj->win, GLFW_KEY_S) == GLFW_PRESS) {
         obj->angle_y -= 5.0f; // Rotar hacia abajo
     }
-    else if (glfwGetKey(obj->win, GLFW_KEY_T) == GLFW_PRESS) {
-        obj->color = obj->color ? 0 : 1;
-        //printFaces(&obj); // Redibujar la escena
+    else if (glfwGetKey(obj->win, GLFW_KEY_1) == GLFW_PRESS) {
+        if (obj->color == 1) {
+            obj->color = 0;
+        }
+        else {
+            obj->color = 1;
+        }
+    }
+    else if (glfwGetKey(obj->win, GLFW_KEY_2) == GLFW_PRESS) {
+        if (obj->color == 2) {
+            obj->color = 0;
+        }
+        else {
+            obj->color = 2;
+        }
     }
 }
 
@@ -87,7 +99,7 @@ int main(int argc, char** argv)
     if(!glfwInit()){
         return -1;
     }
-    obj->win = glfwCreateWindow(640, 480, "SCOP", NULL, NULL);   
+    obj->win = glfwCreateWindow(1280, 720, "SCOP", NULL, NULL);   
     if(!obj->win)
     {
         glfwTerminate();

@@ -28,6 +28,7 @@ typedef struct s_face
 	GLfloat		y;
 	GLfloat		z;
 	GLfloat		t;
+	int			face_color;
 }	t_face;
 
 
