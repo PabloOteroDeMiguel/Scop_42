@@ -71,33 +71,37 @@ void printFaces(t_object *obj) {
                 f[3][0] = transformed_vertex.x;
                 f[3][1] = transformed_vertex.y;
                 f[3][2] = transformed_vertex.z;
-
-                if (obj->color == 1) {
-                    float r, g, b;
-                    generateRandomColor(&r, &g, &b);
-                    glColor3f(r, g, b);
-                }
-                else if (obj->color == 2){
-                    float r, g, b;
-                    generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color);
-                    glColor3f(r, g, b);
-                }    
-
+                float r, g, b;
+                generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color, obj->color);
+                glColor3f(r, g, b);
+                // if (obj->color == 1) {
+                //     float r, g, b;
+                //     generateRandomColor(&r, &g, &b);
+                //     glColor3f(r, g, b);
+                // }
+                // else if (obj->color == 2){
+                //     float r, g, b;
+                //     generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color);
+                //     glColor3f(r, g, b);
+                // }    
                 glVertex3f(f[0][0], f[0][1], f[0][2]);
                 glVertex3f(f[2][0], f[2][1], f[2][2]);
                 glVertex3f(f[3][0], f[3][1], f[3][2]);
             }
             for (int i = 0; i < 3; i++) {
-                if (obj->color == 1){
-                    float r, g, b;
-                    generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color);
-                    glColor3f(r, g, b);
-                }
-                else if (obj->color == 2){
-                    float r, g, b;
-                    generateRandomColor(&r, &g, &b);
-                    glColor3f(r, g, b);
-                }
+                float r, g, b;
+                generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color, obj->color);
+                glColor3f(r, g, b);
+                // if (obj->color == 1){
+                //     float r, g, b;
+                //     generateColor(&r, &g, &b, obj->s_faces[f_cont]->face_color);
+                //     glColor3f(r, g, b);
+                // }
+                // else if (obj->color == 2){
+                //     float r, g, b;
+                //     generateRandomColor(&r, &g, &b);
+                //     glColor3f(r, g, b);
+                // }
                 glVertex3f(f[i][0], f[i][1], f[i][2]);
             }
     }

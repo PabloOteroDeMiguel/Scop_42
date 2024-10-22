@@ -35,6 +35,13 @@ void    input_key(t_object* obj) {
     else if (glfwGetKey(obj->win, GLFW_KEY_S) == GLFW_PRESS) {
         obj->angle_y -= 5.0f; // Rotar hacia abajo
     }
+    else if (glfwGetKey(obj->win, GLFW_KEY_T) == GLFW_PRESS) {
+        obj->color += 1;
+
+        if (obj->color >2) {
+            obj->color = 0;
+        }
+    }
     else if (glfwGetKey(obj->win, GLFW_KEY_1) == GLFW_PRESS) {
         if (obj->color == 1) {
             obj->color = 0;
