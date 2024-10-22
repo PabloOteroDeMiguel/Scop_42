@@ -20,8 +20,10 @@ CC = gcc
 #LDFLAGS = -L/usr/local/Cellar/glfw/3.4/lib -L/usr/local/Cellar/glew/2.2.0_1/lib -lglfw -lGLEW -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 #CFLAGS = -I/home/potero-d/.brew/Cellar/glfw/3.4/include -I/home/potero-d/.brew/Cellar/glew/2.2.0_1/include -Imlx -Ilibft/
 #LDFLAGS = -L/home/potero-d/.brew/Cellar/glfw/3.4/lib -L/home/potero-d/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -lglfw -lGL -lm
-CFLAGS = -Ilibs/glfw/include -Ilibs/glew/include -Imlx -Ilibft/
-LDFLAGS = -Llibs/glfw/lib -Llibs/glew/lib -lGLEW -lglfw -lGL -lm
+# CFLAGS = -Ilibs/glfw/include -Ilibs/glew/include -Imlx -Ilibft/
+CFLAGS = -Ilibs/glew/include -Imlx -Ilibft/
+# LDFLAGS = -Llibs/glfw/lib -Llibs/glew/lib -lGLEW -lglfw -lGL -lm
+LDFLAGS = -Llibs/glew/lib -lGLEW -lglfw -lGL -lm -Wl,-rpath=libs/glew/lib
 
 LIBFT_PATH = libft/
 
