@@ -12,7 +12,7 @@
 
 # include "scop.h"
 
-void generateRandomColor(float *r, float *g, float *b, int color) {
+void generateRandomColor(float *r, float *g, float *b) {
     *r = (float)rand() / RAND_MAX;
     *g = (float)rand() / RAND_MAX;
     *b = (float)rand() / RAND_MAX;
@@ -43,6 +43,7 @@ void generateBasicColor(float *r, float *g, float *b, int color) {
             break;
     }
 }
+
 void generateColor(float *r, float *g, float *b, int color, int type) {
     if (type == 0) {
         *r = 255.0f;
@@ -50,35 +51,9 @@ void generateColor(float *r, float *g, float *b, int color, int type) {
         *b = 255.0f;
     }
     else if (type == 1) {
-        // generateRandomColor(r, g, b);
-        switch (color) {
-        case 0:
-            *r = 1.0f; *g = 0.0f; *b = 0.0f; // Rojo
-            break;
-        case 1:
-            *r = 0.0f; *g = 1.0f; *b = 0.0f; // Verde
-            break;
-        case 2:
-            *r = 0.0f; *g = 0.0f; *b = 1.0f; // Azul
-            break;
-        case 3:
-            *r = 1.0f; *g = 1.0f; *b = 0.0f; // Amarillo
-            break;
-        case 4:
-            *r = 1.0f; *g = 0.0f; *b = 1.0f; // Magenta
-            break;
-        case 5:
-            *r = 0.0f; *g = 1.0f; *b = 1.0f; // Cian
-            break;
-        default:
-            *r = 1.0f; *g = 1.0f; *b = 1.0f; // Blanco por defecto
-            break;
-    }
+        generateBasicColor(r, g, b, color);
     }
     else if (type== 2){
-        // generateColor(&r, &g, &b, color);
-        *r = (float)rand() / RAND_MAX;
-        *g = (float)rand() / RAND_MAX;
-        *b = (float)rand() / RAND_MAX;
+        generateRandomColor(r, g, b);
     } 
 }  

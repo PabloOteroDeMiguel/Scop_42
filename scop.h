@@ -60,8 +60,8 @@ void    rotateVertexY(t_vertex *v, float angle);
 void    rotateVertexX(t_vertex *v, float angle);
 
 //textureAndColor
+void    generateRandomColor(float *r, float *g, float *b);
+void    generateBasicColor(float *r, float *g, float *b, int color);
 void    generateColor(float *r, float *g, float *b, int color, int type);
-// void    generateRandomColor(float *r, float *g, float *b);
-// void    generateColor(float *r, float *g, float *b, int color);
 
 #endif
