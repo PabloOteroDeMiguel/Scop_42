@@ -53,6 +53,11 @@ void    saveVertices(t_object *obj){
 
             free(line);
         }
+        else if (strncmp(str , "vt ", 3 == 0)){
+            t_texcoord texcoord;
+            sscanf(str, "vt %f %f", &texcoord.u, &texcoord.v);
+            obj->s_texcoords[obj->num_texcoords++] = texcoord;
+        }
         str = get_next_line(fd);
     }
 }

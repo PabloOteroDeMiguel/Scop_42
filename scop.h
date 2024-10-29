@@ -63,5 +63,6 @@ void    rotateVertexX(t_vertex *v, float angle);
 void    generateRandomColor(float *r, float *g, float *b);
 void    generateBasicColor(float *r, float *g, float *b, int color);
 void    generateColor(float *r, float *g, float *b, int color, int type);
+GLuint  loadTexture(const char *filepath);
 
 #endif

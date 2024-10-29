@@ -31,21 +31,32 @@ typedef struct s_face
 	int			face_color;
 }	t_face;
 
+typedef struct s_texcoord {
+    float u;
+    float v;
+} t_texcoord;
 
 typedef struct s_object
 {
 	char		*file;
 	int			num_vertices;
 	int			num_faces;
+	int			num_texcoords;
 	int			color;
 	
 	float		(*vertices)[3];
 	float		scale;
 	float		angle_x;
 	float		angle_y;
+
+	bool		tKeyPressed;
+    bool		textureKeyPressed;
+    GLuint		texture;
 	
 	t_vertex	**s_vertices;
 	t_face		**s_faces;
+	t_texcoord	*s_texcoords;
+
 	GLFWwindow	*win;
 
 }	t_object;

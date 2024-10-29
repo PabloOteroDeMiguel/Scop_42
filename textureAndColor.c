@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 # include "scop.h"
+
 
 void generateRandomColor(float *r, float *g, float *b) {
     *r = (float)rand() / RAND_MAX;
     *g = (float)rand() / RAND_MAX;
     *b = (float)rand() / RAND_MAX;
+    
 }
 
 void generateBasicColor(float *r, float *g, float *b, int color) {
@@ -56,4 +60,24 @@ void generateColor(float *r, float *g, float *b, int color, int type) {
     else if (type== 2){
         generateRandomColor(r, g, b);
     } 
-}  
+} 
+
+GLuint loadTexture(const char *filepath) {
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load(filepath, &width, &height, &nrChannels, 0);
+    if (!data) {
+        fprintf(stderr, "Failed to load texture: %s\n", filepath);
+        return 0;
+    }
+
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(data);
+
+    return texture;
+}

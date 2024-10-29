@@ -58,6 +58,16 @@ void    input_key(t_object* obj) {
             obj->color = 2;
         }
     }
+    else if (glfwGetKey(obj->win, GLFW_KEY_3) == GLFW_PRESS) {
+        if (!obj->textureKeyPressed) {
+            char *path = obj->file;
+            path = ft_substr(path, 0, ft_strlen(path) - 4);
+            path = ft_strjoin(path, ".png");
+            printf("Texture path: %s\n", path);
+            obj->texture = loadTexture(path);
+            obj->textureKeyPressed = true; // Marcar la tecla como presionada
+        }
+    }
 }
 
 int main(int argc, char** argv) 
@@ -79,6 +89,10 @@ int main(int argc, char** argv)
     obj->angle_x = 0.0f;
     obj->angle_y = 0.0f;
     obj->color = 0;
+    obj->tKeyPressed = false;
+    obj->textureKeyPressed = false;
+    obj->texture = 0;
+    obj->num_texcoords = 0;
     validateFile(argv[1]); //check file
     countVerticesAndFaces(obj);
     initializeObject(obj);
