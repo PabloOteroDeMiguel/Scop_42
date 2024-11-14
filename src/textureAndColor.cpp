@@ -75,11 +75,11 @@ GLuint loadTexture(std::string filepath) {
         return 0;
     }
     else {
-        std::cout << "Chanel " << nrChannels << std::endl;
-        std::cout << "Width " << width << std::endl;
-        std::cout << "Height " << height << std::endl;
+        std::cout << "Chanel:\t\t" << nrChannels << std::endl;
+        std::cout << "Widthe:\t\t" << width << std::endl;
+        std::cout << "Height:\t\t" << height << std::endl;
         GLenum const fmt[] = {GL_RED, GL_RG, GL_RGB, GL_RGBA};
-        std::cout << "Format " << fmt[nrChannels-1] << std::endl;
+        std::cout << "Format:\t\t" << fmt[nrChannels-1] << std::endl;
 
         CHECK_GL_ERROR(glBindTexture(GL_TEXTURE_2D, textureID));
         CHECK_GL_ERROR(glTexImage2D(GL_TEXTURE_2D, 0, fmt[nrChannels-1], width, height, 0, fmt[nrChannels-1], GL_UNSIGNED_BYTE, data));
@@ -92,6 +92,6 @@ GLuint loadTexture(std::string filepath) {
         
         stbi_image_free(data);    
     }
-    std::cout << "Success" << std::endl;
+    std::cout << "\033[1;32mSuccess\033[0m" << std::endl;
     return textureID;
 }

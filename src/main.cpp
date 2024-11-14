@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
         std::cerr << "File " << argv[1] << " is invalid" << std::endl;
         return EXIT_FAILURE;
     }
-    std::cout << "Success" << std::endl;
+    std::cout << "\033[1;32mSuccess\033[0m" << std::endl;
     Object obj;
     obj.filename = argv[1];
 

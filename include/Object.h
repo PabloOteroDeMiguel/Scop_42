@@ -55,6 +55,7 @@ public:
     void setMode();
     void startWin();
     void scopLoop();
+    void endScop();
     //void loadVertices(const char* filename);
     //void loadFaces(const char* filename);
     

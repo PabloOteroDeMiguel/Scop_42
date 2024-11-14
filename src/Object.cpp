@@ -73,9 +73,9 @@ void Object::countVerticesAndFaces() {
     this->faces = new Face[this->num_faces];
     this->textcoords = new Textcoord[this->num_texcoords];
 
-    std::cout << "Vertices:\t\t" << this.num_vertices << std::endl;
-    std::cout << "Faces:\t\t" << this.num_faces << std::endl;
-    std::cout << "Texture coord:\t" << this.num_texcoords << std::endl;
+    std::cout << "Vertices:\t" << this->num_vertices << std::endl;
+    std::cout << "Faces:\t\t" << this->num_faces << std::endl;
+    std::cout << "Texture coord:\t" << this->num_texcoords << std::endl;
 }
 
 std::vector<std::string> splitString(const std::string& str, char delimiter) {
@@ -239,11 +239,11 @@ void Object::scopLoop() {
 
     const GLubyte *renderer = glGetString(GL_RENDERER);
     const GLubyte *version = glGetString(GL_VERSION);
-    std::cout << "Renderer: " << renderer << std::endl;
-    std::cout << "OpenGL version supported: " << version << std::endl;
+    std::cout << "Renderer:\t" << renderer << std::endl;
+    std::cout << "OpenGL VS:\t" << version << std::endl;
     const GLubyte *glewVersion = glewGetString(GLEW_VERSION);
-    std::cout << "GLEW version: " << glewVersion << std::endl;
-    std::cout << "SCOP Loop" << std::endl;
+    std::cout << "GLEW version:\t" << glewVersion << std::endl;
+    std::cout << "--->SCOP<---" << std::endl;
 
     std::string path = this->filename;
     this->color = 0;
@@ -252,8 +252,9 @@ void Object::scopLoop() {
 
     // Ensure texture is loaded and bound correctly
     glEnable(GL_TEXTURE_2D);
-    //glBindTexture(GL_TEXTURE_2D, this->texture);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    instructions();
 
     while(!glfwWindowShouldClose(this->win)){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -269,6 +270,11 @@ void Object::scopLoop() {
         glfwSwapBuffers(this->win);
         glfwPollEvents();
     }
+    endScop();
+}
+
+void Object::endScop() {
+    std::cout << "Goodbye" << std::endl;
     glfwDestroyWindow(this->win);
     glfwTerminate();
     exit(EXIT_SUCCESS);

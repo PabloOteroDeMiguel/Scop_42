@@ -16,7 +16,7 @@
 void    printVertices(Object *obj);
 void    printFaces(Object *obj);
 
-//InputKey
+//inputKey
 void key_callback(GLFWwindow* window, int key, int, int action, int);
 
 //matrixAndVertex
@@ -30,5 +30,8 @@ void    generateRandomColor(float *r, float *g, float *b);
 void    generateBasicColor(float *r, float *g, float *b, int color);
 void    generateColor(float *r, float *g, float *b, int color, int type);
 GLuint  loadTexture(std::string filepath);
+
+//instructions
+void    instructions();
 
 #endif

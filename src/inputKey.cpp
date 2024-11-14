@@ -62,5 +62,8 @@ void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int
                 obj->textureKeyPressed = true;
             }
         }
+        else if (key == GLFW_KEY_ESCAPE) {
+            obj->endScop();
+        }
     }
 }

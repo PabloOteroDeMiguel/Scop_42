@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = src/main.cpp\
+SOURCES = src/main.cpp src/instructions.cpp\
 		src/Object.cpp src/checkGLError.cpp\
 		src/validateFile.cpp src/matrixAndVertex.cpp src/textureAndColor.cpp\
 		src/printVertices.cpp src/printFaces.cpp src/inputKey.cpp\
