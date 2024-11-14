@@ -11,12 +11,14 @@ Object::Object() :
         num_vertices(0), 
         num_faces(0), 
         num_texcoords(0), 
-        color(0), scale(1.0f), 
+        color(0),
+        mode(0),
+        scale(1.0f), 
         angle_x(0.0f), 
         angle_y(0.0f), 
         tKeyPressed(false), 
-        textureKeyPressed(false), 
-        texture(0),
+        textureKeyPressed(false),
+        texture(0), 
         vertex(NULL), 
         faces(NULL),
         textcoords(NULL) {}
@@ -25,13 +27,14 @@ Object::Object(char* filename) :
         num_vertices(0), 
         num_faces(0), 
         num_texcoords(0), 
-        color(0), 
+        color(0),
+        mode(0),
         scale(1.0f), 
         angle_x(0.0f), 
         angle_y(0.0f), 
         tKeyPressed(false), 
         textureKeyPressed(false), 
-        texture(0), 
+        texture(0),
         vertex(NULL), 
         faces(NULL), 
         textcoords(NULL) {
@@ -41,7 +44,7 @@ Object::Object(char* filename) :
 
 // Destructor
 Object::~Object() {
-    // Código de limpieza (si es necesario)
+    // Cleaning
     delete[] this->vertex;
     delete[] this->faces;
     delete[] this->textcoords;
@@ -65,7 +68,7 @@ void Object::countVerticesAndFaces() {
     }
     file.close();
 
-    // Allocate memory for vertices and faces after counting
+    // Allocate memory for vertices, faces and textures after counting
     this->vertex = new Vertex[this->num_vertices];
     this->faces = new Face[this->num_faces];
     this->textcoords = new Textcoord[this->num_texcoords];
@@ -98,7 +101,6 @@ void Object::saveVertices() {
             f[2] = strtof(split[3].c_str(), NULL);
             v.z = f[2];
             this->vertex[v_cont] = v;
-            //std::cout << "Vertex " << v_cont << ": " << v.x << ", " << v.y << ", " << v.z << std::endl;
             v_cont++;
         }
     }
@@ -134,7 +136,6 @@ void Object::saveFaces() {
                 f_color = 0;
             }
             this->faces[f_cont] = fa;
-            //std::cout << "Face " << f_cont << ": " << fa.x << ", " << fa.y << ", " << fa.z << ", " << fa.t << std::endl;
             f_cont++;
         }
     }
@@ -147,7 +148,6 @@ void Object::saveTexture() {
     int cont = 0;
 
     while (std::getline(file, line)) {
-        std::cout << line << std::endl;
         if (line[0] == 'v' && line[1] == 't'  && line[2] == ' '){
             Textcoord texcoord;
             std::vector<std::string> split = splitString(line, ' ');
@@ -158,7 +158,7 @@ void Object::saveTexture() {
             texcoord.u = strtof(split[1].c_str(), NULL);
             texcoord.v = strtof(split[2].c_str(), NULL);
             this->textcoords[cont++] = texcoord;
-            std::cout << "Textcoord " << cont - 1 << ": " << texcoord.u << ", " << texcoord.v << std::endl;
+            //std::cout << "Textcoord " << cont - 1 << ": " << texcoord.u << ", " << texcoord.v << std::endl;
         }
     }
     file.close();
@@ -186,60 +186,30 @@ void Object::centerObject() {
     }
 }
 
-void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/) {
-    Object* obj = static_cast<Object*>(glfwGetWindowUserPointer(window));
-    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-        if (key == GLFW_KEY_D) {
-            obj->angle_x += 5.0f;
-        }
-        else if (key == GLFW_KEY_A) {
-            obj->angle_x -= 5.0f;
-        }
-        else if (key == GLFW_KEY_E) {
-            obj->scale += 0.1f;
-        }
-        else if (key == GLFW_KEY_Q) {
-            obj->scale -= 0.1f;
-            if (obj->scale < 0) {
-                obj->scale = 0;
-            }
-        }
-        else if (key == GLFW_KEY_W) {
-            obj->angle_y += 5.0f;
-        }
-        else if (key == GLFW_KEY_S) {
-            obj->angle_y -= 5.0f;
-        }
-        else if (key == GLFW_KEY_T) {
-            obj->color += 1;
-            if (obj->color > 2) {
-                obj->color = 0;
-            }
-            obj->textureKeyPressed = false;
-            obj->texture = 0;
-        }
-        else if (key == GLFW_KEY_1) {
-            obj->color = (obj->color == 1) ? 0 : 1;
-            obj->textureKeyPressed = false;
-            obj->texture = 0;
-        }
-        else if (key == GLFW_KEY_2) {
-            obj->color = (obj->color == 2) ? 0 : 2;
-            obj->textureKeyPressed = false;
-            obj->texture = 0;
-        }
-        else if (key == GLFW_KEY_3) {
-            if (obj->textureKeyPressed) {
-                obj->texture = 0; // Remove texture
-                obj->textureKeyPressed = false;
-            } else {
-                std::string path = obj->filename;
-                obj->color = 0;
-                path = path.substr(0, path.size() - 4) + ".bmp";
-                obj->texture = loadTexture(path);
-                obj->textureKeyPressed = true;
-            }
-        }
+void Object::setMode() {
+    switch (this->mode) {
+        case 0:
+            this->texture = 0;
+            this->color = 0;
+            this->textureKeyPressed = false;
+            break;
+        case 1:
+            this->texture = 0;
+            this->color = 1;
+            this->textureKeyPressed = false;
+            break;
+        case 2:
+            this->texture = 0;
+            this->color = 2;
+            this->textureKeyPressed = false;
+            break;
+        case 3:
+            std::string path = this->filename;
+            path = path.substr(0, path.size() - 4) + ".bmp";
+            this->texture = loadTexture(path);
+            this->color = 0;
+            this->textureKeyPressed = true;
+            break;
     }
 }
 
@@ -273,15 +243,14 @@ void Object::scopLoop() {
     std::cout << "GLEW version: " << glewVersion << std::endl;
     std::cout << "SCOP Loop" << std::endl;
 
+
     // Ensure texture is loaded and bound correctly
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, this->texture);
 
     while(!glfwWindowShouldClose(this->win)){
-        //input_key(this);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // Ensure texture coordinates are used in rendering
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glTexCoordPointer(2, GL_FLOAT, 0, this->textcoords);
 

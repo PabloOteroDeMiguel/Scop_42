@@ -14,17 +14,11 @@ SOURCES = src/main.cpp\
 		src/Object.cpp src/checkGLError.cpp\
 		src/validateFile.cpp src/matrixAndVertex.cpp src/textureAndColor.cpp\
 		src/printVertices.cpp src/printFaces.cpp src/inputKey.cpp\
-# SOURCES = src/main.cpp src/errors.cpp src/init.cpp\
-#             src/validateFile.cpp src/readObj.cpp src/printObj.cpp src/saveObj.cpp src/matrixAndVertex.cpp src/textureAndColor.cpp\
-#             src/gnl/get_next_line_utils.cpp src/gnl/get_next_line.cpp \
-#             src/free.cpp src/render.cpp src/checkGLError.cpp
 
 CC = g++
-# CFLAGS = -Wall -Werror -Wextra -Ilibs/glfw/include -Ilibs/glew/include -Ilibs/stb -Imlx
 CFLAGS = -std=c++17 -Wall -Werror -Wextra -Ilibs/glew/include -DGLEW_STATIC -I./inc
 LDFLAGS =-Llibs/glew/lib -lGLEW -lGLU -lglfw -lGL -lX11 -lXrandr -lpthread -ldl -Wl,-rpath=libs/glew/lib
 SRC_DIR = src
-# LDFLAGS = -Llibs/glfw/lib -Llibs/glew/lib -lGLEW -lglfw -lGL -lm
 
 
 OBJECTS=$(SOURCES:.cpp=.o)

@@ -23,6 +23,7 @@ public:
 	int			num_faces;
 	int			num_texcoords;
 	int			color;
+    int         mode;
 
     float		(*vertices)[3];
 	float		scale;
@@ -51,12 +52,14 @@ public:
     void saveFaces();
     void saveTexture();
     void centerObject();
+    void setMode();
     void startWin();
     void scopLoop();
-    void loadVertices(const char* filename);
-    void loadFaces(const char* filename);
-    void render();
-    void handleInput();
+    //void loadVertices(const char* filename);
+    //void loadFaces(const char* filename);
+    
+    //void render();
+    //void handleInput();
 
 private:
 

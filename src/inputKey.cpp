@@ -1,61 +1,57 @@
 #include "../include/Object.h"
 #include "../include/Scop.h"
 
-void input_key(Object* obj) {
-    if (glfwGetKey(obj->win, GLFW_KEY_D) == GLFW_PRESS) {
-        obj->angle_x += 5.0f;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_A) == GLFW_PRESS) {
-        obj->angle_x -= 5.0f;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_E) == GLFW_PRESS) {
-        obj->scale += 0.1f;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_Q) == GLFW_PRESS) {
-        obj->scale -= 0.1f;
-        if (obj->scale < 0) { //Para que no se invierta
-            obj->scale = 0;
+void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/) {
+    Object* obj = static_cast<Object*>(glfwGetWindowUserPointer(window));
+    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+        if (key == GLFW_KEY_D) {
+            obj->angle_x += 5.0f;
         }
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_W) == GLFW_PRESS) {
-        obj->angle_y += 5.0f; // Rotar hacia arriba
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_S) == GLFW_PRESS) {
-        obj->angle_y -= 5.0f; // Rotar hacia abajo
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_T) == GLFW_PRESS) {
-        obj->color += 1;
-
-        if (obj->color >2) {
-            obj->color = 0;
+        else if (key == GLFW_KEY_A) {
+            obj->angle_x -= 5.0f;
         }
-        obj->textureKeyPressed = false;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_1) == GLFW_PRESS) {
-        if (obj->color == 1) {
-            obj->color = 0;
+        else if (key == GLFW_KEY_E) {
+            obj->scale += 0.1f;
         }
-        else {
-            obj->color = 1;
+        else if (key == GLFW_KEY_Q) {
+            obj->scale -= 0.1f;
+            if (obj->scale < 0) {
+                obj->scale = 0;
+            }
         }
-        obj->textureKeyPressed = false;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_2) == GLFW_PRESS) {
-        if (obj->color == 2) {
-            obj->color = 0;
+        else if (key == GLFW_KEY_W) {
+            obj->angle_y += 5.0f;
         }
-        else {
-            obj->color = 2;
+        else if (key == GLFW_KEY_S) {
+            obj->angle_y -= 5.0f;
         }
-        obj->textureKeyPressed = false;
-    }
-    else if (glfwGetKey(obj->win, GLFW_KEY_3) == GLFW_PRESS) {
-        if (!obj->textureKeyPressed) {
-            std::string path = obj->filename;
-            path = path.substr(0, path.size() - 4);
-            path += ".bmp";
-            obj->texture = loadTexture(path);
-            obj->textureKeyPressed = true; // Marcar la tecla como presionada
+        else if (key == GLFW_KEY_T) {
+            obj->mode++;
+            if (obj->mode > 4) { obj->mode = 0; }
+            obj->setMode();  
+        }
+        else if (key == GLFW_KEY_1) {
+            obj->texture = 0;
+            obj->color = (obj->color == 1) ? 0 : 1;
+            obj->textureKeyPressed = false;
+        }
+        else if (key == GLFW_KEY_2) {
+            obj->texture = 0;
+            obj->color = (obj->color == 2) ? 0 : 2;
+            obj->textureKeyPressed = false;
+        }
+        else if (key == GLFW_KEY_3) {
+            if (obj->textureKeyPressed) {
+                obj->texture = 0; // Remove texture
+                obj->color = 0;
+                obj->textureKeyPressed = false;
+            } else {
+                std::string path = obj->filename;
+                obj->color = 0;
+                path = path.substr(0, path.size() - 4) + ".bmp";
+                obj->texture = loadTexture(path);
+                obj->textureKeyPressed = true;
+            }
         }
     }
 }

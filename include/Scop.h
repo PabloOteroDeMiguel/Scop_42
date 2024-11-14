@@ -17,7 +17,7 @@ void    printVertices(Object *obj);
 void    printFaces(Object *obj);
 
 //InputKey
-void    input_key(Object* obj);
+void key_callback(GLFWwindow* window, int key, int, int action, int);
 
 //matrixAndVertex
 void    multiplyMatrixVector(float *v, float matrix[4][4]);

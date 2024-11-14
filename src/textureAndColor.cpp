@@ -63,6 +63,7 @@ void generateColor(float *r, float *g, float *b, int color, int type) {
 
 GLuint loadTexture(std::string filepath) {
     
+    std::cout << "Loading texture... " << std::endl;
     GLuint textureID;
     const char *path = filepath.c_str();
     CHECK_GL_ERROR(glGenTextures(1, &textureID));
@@ -74,17 +75,16 @@ GLuint loadTexture(std::string filepath) {
         return 0;
     }
     else {
-        printf("Chanel: %d\n", nrChannels);
-        printf("Width: %d\n", width);
-        printf("Height: %d\n", height);
-        printf("Here -1\n");
+        std::cout << "Chanel " << nrChannels << std::endl;
+        std::cout << "Width " << width << std::endl;
+        std::cout << "Height " << height << std::endl;
         GLenum const fmt[] = {GL_RED, GL_RG, GL_RGB, GL_RGBA};
-        printf("Format: %d\n", fmt[nrChannels-1]);
+        std::cout << "Format " << fmt[nrChannels-1] << std::endl;
+
         CHECK_GL_ERROR(glBindTexture(GL_TEXTURE_2D, textureID));
         CHECK_GL_ERROR(glTexImage2D(GL_TEXTURE_2D, 0, fmt[nrChannels-1], width, height, 0, fmt[nrChannels-1], GL_UNSIGNED_BYTE, data));
-        printf("Here 0\n");
         CHECK_GL_ERROR(glGenerateMipmap(GL_TEXTURE_2D));
-        printf("Here 1\n");
+
         CHECK_GL_ERROR(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
         CHECK_GL_ERROR(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
         CHECK_GL_ERROR(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
@@ -92,8 +92,6 @@ GLuint loadTexture(std::string filepath) {
         
         stbi_image_free(data);    
     }
-    
-    printf("Here 4\n");
-    printf("TextureID: %i\n", textureID);
+    std::cout << "Success" << std::endl;
     return textureID;
 }
