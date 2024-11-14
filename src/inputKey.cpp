@@ -41,7 +41,7 @@ void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int
             obj->textureKeyPressed = false;
         }
         else if (key == GLFW_KEY_3) {
-            if (obj->textureKeyPressed) {
+            if (obj->textureKeyPressed && obj->mode == 3) {
                 obj->mode = 0;
                 obj->color = 0;
                 obj->textureKeyPressed = false;
@@ -52,7 +52,7 @@ void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int
             }
         }
         else if (key == GLFW_KEY_4) {
-            if (obj->textureKeyPressed) {
+            if (obj->textureKeyPressed && obj->mode == 4) {
                 obj->mode = 0;
                 obj->color = 0;
                 obj->textureKeyPressed = false;

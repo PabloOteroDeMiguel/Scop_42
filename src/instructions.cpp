@@ -26,7 +26,7 @@ void instructions() {
     std::cout << "\t\tE: Bigger" << std::endl;
     std::cout << "--------------------------------" << std::endl;
     std::cout << "\tMode:" << std::endl;
-    std::cout << "\t\tT: Mode up" << std::endl;
+    std::cout << "\t\tT: Next mode" << std::endl;
     std::cout << "\t\t1: Basic color" << std::endl;
     std::cout << "\t\t2: Disco" << std::endl;
     std::cout << "\t\t3: Texture 1" << std::endl;
