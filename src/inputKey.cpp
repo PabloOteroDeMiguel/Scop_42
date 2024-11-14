@@ -31,25 +31,34 @@ void key_callback(GLFWwindow* window, int key, int /*scancode*/, int action, int
             obj->setMode();  
         }
         else if (key == GLFW_KEY_1) {
-            obj->texture = 0;
+            obj->mode = 1;
             obj->color = (obj->color == 1) ? 0 : 1;
             obj->textureKeyPressed = false;
         }
         else if (key == GLFW_KEY_2) {
-            obj->texture = 0;
+            obj->mode = 2;
             obj->color = (obj->color == 2) ? 0 : 2;
             obj->textureKeyPressed = false;
         }
         else if (key == GLFW_KEY_3) {
             if (obj->textureKeyPressed) {
-                obj->texture = 0; // Remove texture
+                obj->mode = 0;
                 obj->color = 0;
                 obj->textureKeyPressed = false;
             } else {
-                std::string path = obj->filename;
                 obj->color = 0;
-                path = path.substr(0, path.size() - 4) + ".bmp";
-                obj->texture = loadTexture(path);
+                obj->mode = 3;
+                obj->textureKeyPressed = true;
+            }
+        }
+        else if (key == GLFW_KEY_4) {
+            if (obj->textureKeyPressed) {
+                obj->mode = 0;
+                obj->color = 0;
+                obj->textureKeyPressed = false;
+            } else {
+                obj->color = 0;
+                obj->mode = 4;
                 obj->textureKeyPressed = true;
             }
         }

@@ -17,9 +17,6 @@ int main(int argc, char** argv) {
     obj.filename = argv[1];
 
     obj.countVerticesAndFaces();
-    std::cout << "Vertices: " << obj.num_vertices << std::endl;
-    std::cout << "Faces: " << obj.num_faces << std::endl;
-
     obj.saveVertices();
     obj.saveFaces();
     obj.saveTexture();

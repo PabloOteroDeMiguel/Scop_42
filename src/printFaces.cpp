@@ -6,8 +6,11 @@ void printFaces(Object* obj) {
     int vertex_index[4];
     GLfloat f[4][3];
 
-    if (obj->texture) {
-        glBindTexture(GL_TEXTURE_2D, obj->texture);
+    if (obj->textureKeyPressed) { 
+        glBindTexture(GL_TEXTURE_2D, obj->texture); 
+    }
+    else { 
+        glBindTexture(GL_TEXTURE_2D, 0); 
     }
 
     glBegin(GL_TRIANGLES);

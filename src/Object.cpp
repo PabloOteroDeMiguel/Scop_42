@@ -72,6 +72,10 @@ void Object::countVerticesAndFaces() {
     this->vertex = new Vertex[this->num_vertices];
     this->faces = new Face[this->num_faces];
     this->textcoords = new Textcoord[this->num_texcoords];
+
+    std::cout << "Vertices:\t\t" << this.num_vertices << std::endl;
+    std::cout << "Faces:\t\t" << this.num_faces << std::endl;
+    std::cout << "Texture coord:\t" << this.num_texcoords << std::endl;
 }
 
 std::vector<std::string> splitString(const std::string& str, char delimiter) {
@@ -189,24 +193,22 @@ void Object::centerObject() {
 void Object::setMode() {
     switch (this->mode) {
         case 0:
-            this->texture = 0;
             this->color = 0;
             this->textureKeyPressed = false;
             break;
         case 1:
-            this->texture = 0;
             this->color = 1;
             this->textureKeyPressed = false;
             break;
         case 2:
-            this->texture = 0;
             this->color = 2;
             this->textureKeyPressed = false;
             break;
         case 3:
-            std::string path = this->filename;
-            path = path.substr(0, path.size() - 4) + ".bmp";
-            this->texture = loadTexture(path);
+            this->color = 0;
+            this->textureKeyPressed = true;
+            break;
+        case 4:
             this->color = 0;
             this->textureKeyPressed = true;
             break;
@@ -243,10 +245,15 @@ void Object::scopLoop() {
     std::cout << "GLEW version: " << glewVersion << std::endl;
     std::cout << "SCOP Loop" << std::endl;
 
+    std::string path = this->filename;
+    this->color = 0;
+    path = path.substr(0, path.size() - 4) + ".bmp";
+    this->texture = loadTexture(path);
 
     // Ensure texture is loaded and bound correctly
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, this->texture);
+    //glBindTexture(GL_TEXTURE_2D, this->texture);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     while(!glfwWindowShouldClose(this->win)){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
