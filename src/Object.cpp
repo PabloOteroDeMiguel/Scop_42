@@ -4,6 +4,7 @@
 #include <string.h>
 #include <vector>
 #include <sstream>
+#include <cstdlib>
 
 // Constructor
 
@@ -16,8 +17,12 @@ Object::Object() :
         scale(1.0f), 
         angle_x(0.0f), 
         angle_y(0.0f), 
+        center_x(0.0f),
+        center_y(0.0f),
+        center_z(0.0f),
         tKeyPressed(false), 
         textureKeyPressed(false),
+        move(false),
         texture(0), 
         vertex(NULL), 
         faces(NULL),
@@ -31,9 +36,13 @@ Object::Object(char* filename) :
         mode(0),
         scale(1.0f), 
         angle_x(0.0f), 
-        angle_y(0.0f), 
+        angle_y(0.0f),
+        center_x(0.0f),
+        center_y(0.0f),
+        center_z(0.0f), 
         tKeyPressed(false), 
-        textureKeyPressed(false), 
+        textureKeyPressed(false),
+        move(false),
         texture(0),
         vertex(NULL), 
         faces(NULL), 
@@ -212,12 +221,40 @@ void Object::setMode() {
             this->color = 0;
             this->textureKeyPressed = true;
             break;
+        case 5:
+            this->color = 0;
+            this->textureKeyPressed = false;
+            break;
     }
+}
+
+void frameSize(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+    Object* obj = static_cast<Object*>(glfwGetWindowUserPointer(window));
+    obj->scale = std::min(width / 1080.0f, height / 720.0f); // Scale proportionally
+}
+
+void Object::moveX(float delta) {
+    for (int i = 0; i < this->num_vertices; i++) {
+        this->vertex[i].x += delta;     
+    }
+    this->center_x += delta;
+    //this->centerObject();
+}
+
+void Object::moveY(float delta) {
+    for (int i = 0; i < this->num_vertices; i++) {
+        this->vertex[i].y += delta;
+        
+    }
+    this->center_y += delta;
+    //this->centerObject();
 }
 
 void Object::startWin() {
     GLFWwindow* win;
-    win = glfwCreateWindow(1280, 720, "SCOP", NULL, NULL);
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // Make window resizable
+    win = glfwCreateWindow(1080, 720, "SCOP", NULL, NULL);
     if (!win) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -226,6 +263,7 @@ void Object::startWin() {
     this->win = win;
     glfwSetWindowUserPointer(win, this);
     glfwSetKeyCallback(win, key_callback);
+    glfwSetFramebufferSizeCallback(win, frameSize); // Set resize callback
 }
 
 void Object::scopLoop() {
@@ -262,8 +300,11 @@ void Object::scopLoop() {
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glTexCoordPointer(2, GL_FLOAT, 0, this->textcoords);
 
+        glPushMatrix();
+        glScalef(this->scale, this->scale, this->scale); // Apply scaling
         printVertices(this);
         printFaces(this);
+        glPopMatrix();
 
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -279,3 +320,5 @@ void Object::endScop() {
     glfwTerminate();
     exit(EXIT_SUCCESS);
 }
+
+

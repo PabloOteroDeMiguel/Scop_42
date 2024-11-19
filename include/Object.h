@@ -29,9 +29,14 @@ public:
 	float		scale;
     float       angle_x;
     float       angle_y;
+    float       center_x;
+    float       center_y;
+    float       center_z;
+
 
     bool        tKeyPressed;
     bool        textureKeyPressed;
+    bool        move;
     GLuint      texture;
     Vertex      *vertex;
     Face        *faces;
@@ -53,6 +58,8 @@ public:
     void saveTexture();
     void centerObject();
     void setMode();
+    void moveX(float delta);
+    void moveY(float delta);
     void startWin();
     void scopLoop();
     void endScop();

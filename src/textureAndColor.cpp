@@ -95,3 +95,9 @@ GLuint loadTexture(std::string filepath) {
     std::cout << "\033[1;32mSuccess\033[0m" << std::endl;
     return textureID;
 }
+
+void calculateGrayscaleColor(float &r, float &g, float &b, int index, int num_faces) {
+    //float intensity = (depth + 1.0f) / 2.0f; // Normalize depth to range [0, 1]
+    float intensity = static_cast<float>(index) / static_cast<float>(num_faces); 
+    r = g = b = intensity; // Set r, g, b to the same value to get a grayscale color
+}

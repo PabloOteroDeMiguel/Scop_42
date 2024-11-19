@@ -35,8 +35,14 @@ void printFaces(Object* obj) {
             f[i][1] = transformed_vertex.y;
             f[i][2] = transformed_vertex.z;
         }
+
         float r, g, b;
-        generateColor(&r, &g, &b, obj->faces[f_cont].face_color, obj->color);
+        if (obj->mode == 5) {
+            //obj->calculateGrayscaleColor(f[0][2], r, g, b);
+            calculateGrayscaleColor(r, g, b, f_cont, obj->num_faces);
+        } else {
+            generateColor(&r, &g, &b, obj->faces[f_cont].face_color, obj->color);
+        }
         glColor3f(r, g, b);
 
         if (vertex_index[3] && vertex_index[3] > 0){
