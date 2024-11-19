@@ -28,8 +28,15 @@ void printFaces(Object* obj) {
             }
             Vertex transformed_vertex = obj->vertex[vertex_index[i]];
             scaleVertex(&transformed_vertex, obj->scale);
+            // Translate to center, rotate, then translate back
+            transformed_vertex.x -= obj->center_x;
+            transformed_vertex.y -= obj->center_y;
+            transformed_vertex.z -= obj->center_z;
             rotateVertexY(&transformed_vertex, obj->angle_x);
             rotateVertexX(&transformed_vertex, obj->angle_y);
+            transformed_vertex.x += obj->center_x;
+            transformed_vertex.y += obj->center_y;
+            transformed_vertex.z += obj->center_z;
 
             f[i][0] = transformed_vertex.x;
             f[i][1] = transformed_vertex.y;
