@@ -87,15 +87,7 @@ void Object::countVerticesAndFaces() {
     std::cout << "Texture coord:\t" << this->num_texcoords << std::endl;
 }
 
-std::vector<std::string> splitString(const std::string& str, char delimiter) {
-    std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(str);
-    while (std::getline(tokenStream, token, delimiter)) {
-        tokens.push_back(token);
-    }
-    return tokens;
-}
+
 
 void Object::saveVertices() {
     int v_cont = 0;
@@ -171,8 +163,7 @@ void Object::saveTexture() {
             texcoord.u = strtof(split[1].c_str(), NULL);
             texcoord.v = strtof(split[2].c_str(), NULL);
             this->textcoords[cont++] = texcoord;
-            //std::cout << "Textcoord " << cont - 1 << ": " << texcoord.u << ", " << texcoord.v << std::endl;
-        }
+       }
     }
     file.close();
 }
@@ -226,12 +217,6 @@ void Object::setMode() {
             this->textureKeyPressed = false;
             break;
     }
-}
-
-void frameSize(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-    Object* obj = static_cast<Object*>(glfwGetWindowUserPointer(window));
-    obj->scale = std::min(width / 1080.0f, height / 720.0f); // Scale proportionally
 }
 
 void Object::moveX(float delta) {

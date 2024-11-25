@@ -30,10 +30,13 @@ void    generateRandomColor(float *r, float *g, float *b);
 void    generateBasicColor(float *r, float *g, float *b, int color);
 void    generateColor(float *r, float *g, float *b, int color, int type);
 GLuint  loadTexture(std::string filepath);
-//void    calculateGrayscaleColor(float depth, float &r, float &g, float &b);
 void    calculateGrayscaleColor(float &r, float &g, float &b, int index, int num_faces);
 
 //instructions
 void    instructions();
+
+//utils
+std::vector<std::string> splitString(const std::string &s, char delimiter);
+void    frameSize(GLFWwindow* window, int width, int height);
 
 #endif
